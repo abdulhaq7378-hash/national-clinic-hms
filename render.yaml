@@ -1,0 +1,53 @@
+# Render blueprint: one web service that runs the API and serves the built HMS
+# from the same origin. Database is MongoDB Atlas (a replica set, which this
+# application requires in production).
+#
+# Values marked "sync: false" are entered in the Render dashboard, never in git.
+
+services:
+  - type: web
+    name: national-clinic-hms
+    runtime: node
+    plan: free
+    region: singapore
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
+      - key: NODE_ENV
+        value: production
+      # Serve hms/dist from the API so the whole system is one URL.
+      - key: SERVE_WEB_DIST
+        value: ../hms/dist
+      # Render terminates TLS at its proxy.
+      - key: TRUST_PROXY
+        value: "1"
+      - key: COOKIE_SECURE
+        value: "true"
+      # The in-memory MongoDB used for local demos and tests must not download
+      # its server binary during a cloud build.
+      - key: MONGOMS_DISABLE_POSTINSTALL
+        value: "1"
+      - key: LOG_LEVEL
+        value: info
+      # Generated once by Render and kept secret.
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      # Entered in the dashboard:
+      - key: MONGODB_URI
+        sync: false
+      - key: MONGODB_DB_NAME
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      # Creates the first administrator on first start. Remove all three once
+      # the account exists.
+      - key: BOOTSTRAP_ADMIN_NAME
+        sync: false
+      - key: BOOTSTRAP_ADMIN_EMAIL
+        sync: false
+      - key: BOOTSTRAP_ADMIN_PASSWORD
+        sync: false
