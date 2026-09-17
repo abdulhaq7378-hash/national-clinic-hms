@@ -1,0 +1,30 @@
+{
+  "name": "national-clinic-hms",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hospital Management System for National Clinic, Aurangabad",
+  "workspaces": [
+    "shared",
+    "server",
+    "hms"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "npm run build -w @hms/shared && concurrently -n server,hms -c red,blue \"npm run dev -w @hms/server\" \"npm run dev -w @hms/web\"",
+    "dev:demo": "npm run build -w @hms/shared && concurrently -n server,hms -c red,blue \"npm run dev:demo -w @hms/server\" \"npm run dev -w @hms/web\"",
+    "build": "npm run build -w @hms/shared && npm run build -w @hms/server && npm run build -w @hms/web",
+    "start": "npm run start -w @hms/server",
+    "test": "npm run build -w @hms/shared && npm run test -w @hms/server",
+    "typecheck": "npm run build -w @hms/shared && npm run typecheck -w @hms/server && npm run typecheck -w @hms/web",
+    "seed": "npm run seed -w @hms/server",
+    "seed:demo": "npm run seed:demo -w @hms/server",
+    "create-admin": "npm run create-admin -w @hms/server",
+    "generate-secret": "node scripts/generate-secret.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "10.0.5",
+    "typescript": "5.9.3"
+  }
+}
