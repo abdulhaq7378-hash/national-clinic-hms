@@ -11,7 +11,10 @@ services:
     plan: free
     region: singapore
     branch: main
-    buildCommand: npm install && npm run build
+    # NODE_ENV=production (needed at runtime) makes npm skip devDependencies,
+    # so the build asks for them explicitly: TypeScript, Vite and the type
+    # packages are all dev dependencies.
+    buildCommand: npm install --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
