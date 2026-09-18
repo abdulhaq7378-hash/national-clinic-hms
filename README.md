@@ -1,5 +1,11 @@
 # National Clinic HMS
 
+**Live demo: [national-clinic-hms.onrender.com](https://national-clinic-hms.onrender.com)**
+
+The demo runs on a free instance that sleeps when idle, so the first page load
+can take up to a minute. It holds demonstration data only, never real patient
+records. Sign-in details are shared privately on request.
+
 Hospital Management System for **National Clinic, Aurangabad, Maharashtra**.
 
 A single system for the whole clinic: patient registration, appointments, the OPD
