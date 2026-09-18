@@ -21,10 +21,13 @@
     "seed": "npm run seed -w @hms/server",
     "seed:demo": "npm run seed:demo -w @hms/server",
     "create-admin": "npm run create-admin -w @hms/server",
-    "generate-secret": "node scripts/generate-secret.mjs"
+    "generate-secret": "node scripts/generate-secret.mjs",
+    "check-db": "node scripts/check-db.mjs"
   },
   "devDependencies": {
     "concurrently": "10.0.5",
+    "dotenv": "^18.0.0",
+    "mongodb": "^7.6.0",
     "typescript": "5.9.3"
   }
 }
